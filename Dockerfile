@@ -31,7 +31,7 @@ RUN chown -R www-data:www-data /var/www/html \
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
 # Expose the web server port
-EXPOSE 80
+EXPOSE 8081
 
 # Start Apache in the foreground
 CMD ["apache2-foreground"]
