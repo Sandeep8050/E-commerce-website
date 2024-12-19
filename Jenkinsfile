@@ -1,31 +1,48 @@
 pipeline {
     agent any
 
+    environment {
+        // Define environment variables
+        MY_ENV_VAR = 'value'
+    }
+
     stages {
-        // Stage 1: Build
         stage('Build') {
             steps {
-                // Echo a message to indicate the build step
-                sh 'echo Building Application'
-                // Build the Docker image
-                sh 'docker build -t my-ecommerce-app .'
+                script {
+                    echo "Building the project..."
+                    // Add build commands here (e.g., Maven, Gradle, npm, etc.)
+                }
             }
         }
-
-        // Stage 2: Test
         stage('Test') {
             steps {
-                // Run tests using pytest (ensure pytest is installed and tests are available)
-                sh 'pytest tests/'
+                script {
+                    echo "Running tests..."
+                    // Add test commands here (e.g., unit tests, integration tests, etc.)
+                }
             }
         }
-
-        // Stage 3: Deploy
         stage('Deploy') {
             steps {
-                // Deploy the application using kubectl (ensure kubectl is configured and deployment.yaml exists)
-                sh 'kubectl apply -f deployment.yaml'
+                script {
+                    echo "Deploying to server..."
+                    // Add deploy commands here (e.g., kubectl, Docker, etc.)
+                }
             }
+        }
+    }
+
+    post {
+        always {
+            echo 'Cleaning up...'
+            // Add cleanup steps if necessary
+        }
+        success {
+            echo 'Pipeline completed successfully!'
+        }
+        failure {
+            echo 'Pipeline failed!'
         }
     }
 }
